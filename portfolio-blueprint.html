@@ -1,0 +1,743 @@
+<title>Portfolio Blueprint</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#F5F6F4;
+  --surface:#FFFFFF;
+  --surface-alt:#ECF0ED;
+  --border:#DBE1DC;
+  --text:#151A17;
+  --text-muted:#57615B;
+  --accent:#1F6F5C;
+  --accent-strong:#134338;
+  --accent-soft:#DCEBE6;
+  --warn:#A9662A;
+  --warn-soft:#F3E2CD;
+  --mono-bg:#EEF1EE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12151A;
+    --surface:#1A1F25;
+    --surface-alt:#20262D;
+    --border:#2C333B;
+    --text:#E8ECE9;
+    --text-muted:#9DA8A2;
+    --accent:#57C1A6;
+    --accent-strong:#7FD4BC;
+    --accent-soft:#1E3833;
+    --warn:#E3A45C;
+    --warn-soft:#3A2B1B;
+    --mono-bg:#1E252C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12151A;
+  --surface:#1A1F25;
+  --surface-alt:#20262D;
+  --border:#2C333B;
+  --text:#E8ECE9;
+  --text-muted:#9DA8A2;
+  --accent:#57C1A6;
+  --accent-strong:#7FD4BC;
+  --accent-soft:#1E3833;
+  --warn:#E3A45C;
+  --warn-soft:#3A2B1B;
+  --mono-bg:#1E252C;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'IBM Plex Sans', system-ui, sans-serif;
+  line-height:1.6;
+  font-size:16px;
+}
+h1,h2,h3{
+  font-family:'Newsreader', Georgia, serif;
+  font-weight:600;
+  text-wrap:balance;
+  color:var(--text);
+  margin:0;
+}
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--accent-strong);
+  font-weight:600;
+}
+p{margin:0 0 0.9em 0;}
+p:last-child{margin-bottom:0;}
+a{color:var(--accent-strong);}
+.wrap{
+  display:flex;
+  max-width:1180px;
+  margin:0 auto;
+  align-items:flex-start;
+}
+nav.toc{
+  position:sticky;
+  top:0;
+  align-self:flex-start;
+  width:216px;
+  flex:none;
+  padding:32px 18px 32px 24px;
+  height:100vh;
+  overflow-y:auto;
+}
+nav.toc .navlabel{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  margin-bottom:10px;
+}
+nav.toc a{
+  display:block;
+  font-size:0.86rem;
+  color:var(--text-muted);
+  text-decoration:none;
+  padding:5px 0;
+  border-left:2px solid transparent;
+  padding-left:10px;
+  margin-left:-11px;
+}
+nav.toc a:hover{color:var(--text);}
+nav.toc .grp{margin-bottom:18px;}
+main{
+  flex:1;
+  min-width:0;
+  padding:48px 40px 100px;
+  max-width:900px;
+}
+section{
+  margin-bottom:64px;
+  scroll-margin-top:24px;
+}
+section > .eyebrow{display:block;margin-bottom:8px;}
+section h2{font-size:1.7rem;margin-bottom:6px;}
+.dek{color:var(--text-muted);font-size:1.02rem;max-width:62ch;margin-bottom:28px;}
+.prose{max-width:66ch;}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:24px 26px;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.tag{
+  display:inline-block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.76rem;
+  background:var(--mono-bg);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:3px 9px;
+  border-radius:6px;
+  margin:0 6px 6px 0;
+}
+.tagrow{margin-top:4px;}
+.badge-warn{
+  display:inline-block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  background:var(--warn-soft);
+  color:var(--warn);
+  border:1px solid var(--warn);
+  padding:2px 8px;
+  border-radius:5px;
+  font-weight:600;
+}
+
+/* skills */
+.skillgrp{
+  border:1px solid var(--border);
+  background:var(--surface);
+  border-radius:10px;
+  padding:18px 20px;
+}
+.skillgrp h4{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.78rem;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--accent-strong);
+  margin:0 0 10px 0;
+}
+.skillgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:8px;}
+
+/* experience timeline */
+.tl{border-left:2px solid var(--border);padding-left:22px;display:flex;flex-direction:column;gap:28px;}
+.tlitem{position:relative;}
+.tlitem::before{
+  content:"";
+  position:absolute;left:-28px;top:5px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+}
+.tlitem .role{font-weight:600;font-size:1.05rem;}
+.tlitem .meta{font-family:'IBM Plex Mono', monospace;font-size:0.78rem;color:var(--text-muted);margin:2px 0 8px;}
+
+/* case study */
+.case{
+  border:1px solid var(--border);
+  background:var(--surface);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:28px;
+}
+.case-head{
+  padding:22px 26px 18px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-alt);
+}
+.case-head .idx{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--accent-strong);letter-spacing:0.08em;}
+.case-head h3{font-size:1.3rem;margin-top:4px;}
+.case-head .meta{color:var(--text-muted);font-size:0.88rem;margin-top:4px;}
+.case-body{padding:8px 26px 22px;}
+.field{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:18px;
+  padding:12px 0;
+  border-top:1px solid var(--border);
+}
+.field:first-child{border-top:none;}
+.field .k{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.72rem;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--text-muted);
+  padding-top:2px;
+}
+.field .v{font-size:0.95rem;}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:0.92rem;}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+th{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface);}
+.tablewrap table{margin:0;}
+.tablewrap th:first-child, .tablewrap td:first-child{padding-left:16px;}
+
+/* page list (canva) */
+.pagelist{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);}
+.pageitem{display:grid;grid-template-columns:52px 200px 1fr;gap:16px;padding:16px 20px;border-top:1px solid var(--border);}
+.pageitem:first-child{border-top:none;}
+.pageitem .num{font-family:'IBM Plex Mono',monospace;color:var(--accent-strong);font-weight:600;}
+.pageitem .ptitle{font-weight:600;}
+.pageitem .pvisual{color:var(--text-muted);font-size:0.86rem;margin-top:4px;}
+
+/* website sections */
+.websec{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:20px 24px;margin-bottom:16px;}
+.websec h4{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent-strong);margin:0 0 10px;}
+.websec .copy{font-size:0.94rem;}
+.websec blockquote{
+  margin:10px 0 0;padding:12px 16px;
+  background:var(--surface-alt);border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;font-style:italic;color:var(--text);
+}
+
+/* gaps checklist */
+.checklist{display:flex;flex-direction:column;gap:12px;}
+.checkitem{
+  display:grid;grid-template-columns:22px 1fr;gap:12px;
+  border:1px solid var(--border);background:var(--surface);
+  border-radius:8px;padding:14px 16px;
+}
+.checkitem .box{
+  width:16px;height:16px;border:2px solid var(--accent);border-radius:4px;margin-top:2px;
+}
+.checkitem .t{font-weight:600;margin-bottom:2px;}
+.checkitem .d{color:var(--text-muted);font-size:0.9rem;}
+
+hr.rule{border:none;border-top:1px solid var(--border);margin:10px 0 24px;}
+
+@media (max-width:900px){
+  .wrap{display:block;}
+  nav.toc{
+    position:static;width:auto;height:auto;
+    display:flex;overflow-x:auto;gap:18px;padding:16px 20px;
+    border-bottom:1px solid var(--border);
+  }
+  nav.toc .grp{margin-bottom:0;white-space:nowrap;}
+  main{padding:32px 20px 80px;}
+  .grid2,.grid3,.skillgrid{grid-template-columns:1fr;}
+  .field{grid-template-columns:1fr;gap:4px;}
+  .pageitem{grid-template-columns:1fr;gap:4px;}
+  .pageitem .num{order:0;}
+}
+</style>
+
+<div class="wrap">
+<nav class="toc">
+  <div class="grp">
+    <div class="navlabel">Foundation</div>
+    <a href="#positioning">Positioning</a>
+    <a href="#bio">Tagline &amp; bio</a>
+    <a href="#skills">Skills matrix</a>
+    <a href="#experience">Experience</a>
+  </div>
+  <div class="grp">
+    <div class="navlabel">Case studies</div>
+    <a href="#case-exp">Exponential Science</a>
+    <a href="#case-dlt">DLT Science Fdn</a>
+    <a href="#case-tenos">Tenos</a>
+    <a href="#case-datathon">Datathon PPKM</a>
+    <a href="#case-thesis">Thesis</a>
+    <a href="#case-tanamify">Tanamify</a>
+    <a href="#case-hopo">HoPo</a>
+  </div>
+  <div class="grp">
+    <div class="navlabel">Deliverables</div>
+    <a href="#canva">Canva PDF blueprint</a>
+    <a href="#website">Website copy</a>
+    <a href="#placement">Homepage vs. deep-dive</a>
+    <a href="#gaps">Gaps &amp; next steps</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="top" style="margin-bottom:40px;">
+  <span class="eyebrow">Portfolio content package · Dewi Rizki Fitriani</span>
+  <h1 style="font-size:2.2rem;margin-top:10px;">From Mathematics to production data pipelines.</h1>
+  <p class="dek" style="margin-top:14px;max-width:68ch;">Everything below is built only from your CV and the Datathon AI 2021 paper — nothing is invented. Fields marked <span class="badge-warn">Metric needed</span> are real gaps: places where a number would make the case study land harder, but no number exists in the source material yet.</p>
+</section>
+
+<section id="positioning">
+  <span class="eyebrow">01 — Positioning</span>
+  <h2>Where you sit</h2>
+  <p class="dek">The story that ties the CV together, in one paragraph.</p>
+  <div class="card prose">
+    <p>You're a Data Engineer with just over two years of hands-on production experience — not a student with a math degree who also codes. The mathematics training (UIN Syarif Hidayatullah, GPA 3.45) shows up as a working habit, not a credential: you reach for correlation analysis and cluster validation before you reach for a dashboard, and your two current/most recent roles both involve taking something unproven — a blockchain research POC, a scattered set of raw sources — and turning it into a pipeline that runs on a schedule and feeds a production database.</p>
+    <p>That combination — <strong>production AWS/Databricks pipeline work</strong> plus <strong>a quantitative research habit proven in national competition</strong> — is the actual differentiator. Most junior-to-mid Data Engineers can point to ETL work; fewer can point to a national Top-10 finish (out of 187 teams) built on Pearson correlation and silhouette-validated K-Means clustering applied to a real policy question. Lead with the pipelines, use the math as the reason your pipelines are well-reasoned rather than just wired together.</p>
+  </div>
+</section>
+
+<section id="bio">
+  <span class="eyebrow">02 — Tagline &amp; bio</span>
+  <h2>Tagline &amp; bio</h2>
+  <p class="dek">One tagline, two bio lengths. Use the tagline on the CV cover and website hero; the short bio in the hero subhead or About preview; the long bio on the About page.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="eyebrow" style="margin-bottom:8px;">Recommended tagline</div>
+    <p style="font-family:'Newsreader',serif;font-size:1.3rem;font-weight:500;">"Data Engineer with a mathematics foundation — turning raw, unproven data into pipelines that run in production."</p>
+    <div class="tagrow" style="margin-top:12px;">
+      <span class="tag">Alt: Engineering data pipelines with a statistician's discipline.</span>
+      <span class="tag">Alt: From proof-of-concept to production — Python, AWS, Databricks.</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:8px;">Short bio (hero / card, ~60 words)</div>
+      <p>Dewi is a Data Engineer with 2+ years building ETL pipelines and cloud data infrastructure on AWS and Databricks — most recently turning a blockchain research prototype into a production data pipeline for a financial index. Her background is in Mathematics, which shows up directly in her work: statistical validation, clustering, and correlation analysis, proven in a national Top-10 datathon finish.</p>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:8px;">Long bio (About page, ~140 words)</div>
+      <p>Dewi Rizki Fitriani is a Data Engineer based in Indonesia, working at the intersection of production data infrastructure and quantitative analysis. Since 2023 she has designed and maintained ETL pipelines across AWS (S3, Lambda, EC2, Athena, RDS) and Databricks, moving raw multi-source data into PostgreSQL and TimescaleDB for downstream analysis. At Exponential Science, she works with blockchain researchers to move a proof-of-concept into a production pipeline supporting a stablecoin project tied to a financial index — fetching, transforming, feature-extracting, and loading data end to end.</p>
+      <p>Her Mathematics degree (UIN Syarif Hidayatullah) isn't a side note: as a student she led a team to a national Top-10 finish (of 187) applying K-Means clustering and correlation analysis to COVID-19 policy data, and wrote her thesis on Random Forest–based spam detection. That statistical grounding is what she brings to every pipeline she builds.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <span class="eyebrow">03 — Skills matrix</span>
+  <h2>Technical skills, grouped by evidence</h2>
+  <p class="dek">Grouped by what's actually demonstrated in your CV and projects — not by what a generic Data Engineer JD lists. Skills your target roles ask for but that aren't yet evidenced are called out separately in <a href="#gaps">Gaps &amp; next steps</a> rather than listed here as proven.</p>
+
+  <div class="skillgrid">
+    <div class="skillgrp">
+      <h4>Languages &amp; processing</h4>
+      <div class="tagrow">
+        <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">PySpark</span>
+        <span class="tag">Polars</span><span class="tag">NumPy</span><span class="tag">SQLAlchemy</span><span class="tag">SQL</span>
+      </div>
+    </div>
+    <div class="skillgrp">
+      <h4>Cloud &amp; infrastructure</h4>
+      <div class="tagrow">
+        <span class="tag">AWS S3</span><span class="tag">AWS Lambda</span><span class="tag">AWS EC2</span>
+        <span class="tag">AWS Athena</span><span class="tag">AWS RDS</span><span class="tag">Google Cloud Platform</span>
+      </div>
+    </div>
+    <div class="skillgrp">
+      <h4>Data platforms &amp; orchestration</h4>
+      <div class="tagrow">
+        <span class="tag">Databricks (jobs &amp; scheduling)</span><span class="tag">Data Catalog</span><span class="tag">ETL design</span><span class="tag">Pentaho</span>
+      </div>
+    </div>
+    <div class="skillgrp">
+      <h4>Databases</h4>
+      <div class="tagrow">
+        <span class="tag">PostgreSQL</span><span class="tag">TimescaleDB</span>
+      </div>
+    </div>
+    <div class="skillgrp">
+      <h4>Analytics &amp; BI</h4>
+      <div class="tagrow">
+        <span class="tag">Exploratory Data Analysis</span><span class="tag">Power BI</span><span class="tag">Looker Studio</span>
+      </div>
+    </div>
+    <div class="skillgrp">
+      <h4>Statistics &amp; quantitative methods</h4>
+      <div class="tagrow">
+        <span class="tag">Pearson correlation</span><span class="tag">K-Means clustering</span><span class="tag">Silhouette analysis</span>
+        <span class="tag">ARIMA forecasting</span><span class="tag">Random Forest</span><span class="tag">SVM</span><span class="tag">Feature engineering</span>
+      </div>
+    </div>
+    <div class="skillgrp" style="grid-column:1/-1;">
+      <h4>Tooling &amp; collaboration</h4>
+      <div class="tagrow">
+        <span class="tag">Git / GitHub</span><span class="tag">Spring Boot (cross-functional capstone)</span><span class="tag">Flask</span><span class="tag">Cross-team / cross-university collaboration</span><span class="tag">Technical mentoring &amp; instruction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <span class="eyebrow">04 — Experience</span>
+  <h2>Professional experience</h2>
+  <p class="dek">Full timeline, most recent first. This maps directly to the website's Experience section and the Canva timeline page.</p>
+  <div class="tl">
+    <div class="tlitem">
+      <div class="role">Data Engineer — Exponential Science</div>
+      <div class="meta">April 2025 – Present</div>
+      <p>Collaborating with blockchain researchers to move a proof-of-concept into a production data product. Built and maintain Databricks pipelines that fetch, transform, extract features from, and load blockchain data into a production database, contributing to a stablecoin project tied to a financial index.</p>
+    </div>
+    <div class="tlitem">
+      <div class="role">Data Engineer — DLT Science Foundation</div>
+      <div class="meta">October 2023 – April 2025</div>
+      <p>Designed, developed, and maintained ETL pipelines and data workflows. Used Pandas, PySpark, Polars, SQLAlchemy, and NumPy to process raw data; deployed on AWS (S3, Lambda, EC2, Athena, RDS); scheduled and orchestrated workflows in Databricks; monitored pipeline performance and supported AWS infrastructure provisioning.</p>
+    </div>
+    <div class="tlitem">
+      <div class="role">Python Tutor — Kodland</div>
+      <div class="meta">August 2022 – September 2024</div>
+      <p>Taught Python fundamentals, Pygame, and advanced Python to students; built assignment reports and instructional materials (lesson plans, quizzes, assessments).</p>
+    </div>
+    <div class="tlitem">
+      <div class="role">Data Analyst Intern — Tenos</div>
+      <div class="meta">April 2023 – September 2023</div>
+      <p>Managed flow-process database integrity and validation protocols; built interactive Power BI / Looker Studio dashboards; delivered stakeholder-specific reporting.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" style="margin:56px 0;">
+
+<section id="cases-intro" style="margin-bottom:32px;">
+  <span class="eyebrow">05 — Case studies</span>
+  <h2>Seven projects, rewritten as case studies</h2>
+  <p class="dek">Selected from your CV and the attached paper — the seven with enough real detail to write honestly. Each follows the same structure: problem, context, role, approach, tech, implementation, challenges, solution, results, and what you learned.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Project</th><th>Type</th><th>Why it's here</th></tr>
+      <tr><td><strong>Exponential Science</strong></td><td>Current role · DE</td><td>Flagship — production pipeline, current work</td></tr>
+      <tr><td><strong>DLT Science Foundation</strong></td><td>Prior role · DE</td><td>Flagship — 18 months, full ETL ownership</td></tr>
+      <tr><td><strong>Datathon AI 2021 (PPKM)</strong></td><td>Competition · Analytics</td><td>Centerpiece of the math → DE narrative</td></tr>
+      <tr><td><strong>Tenos</strong></td><td>Internship · Analyst</td><td>Shows BI/reporting range before DE roles</td></tr>
+      <tr><td><strong>Thesis (spam detection)</strong></td><td>Academic · ML</td><td>Evidences NLP/ML feature engineering</td></tr>
+      <tr><td><strong>Bangkit — Tanamify</strong></td><td>Program capstone · Cloud</td><td>Cross-functional, cloud-native teamwork</td></tr>
+      <tr><td><strong>COMPFEST14 — HoPo</strong></td><td>Competition · Product</td><td>Applied algorithmic thinking, team leadership</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CASE 1: Exponential Science -->
+<section id="case-exp">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 01 · Flagship</div>
+      <h3>Exponential Science — from blockchain research POC to production pipeline</h3>
+      <div class="meta">Data Engineer · April 2025 – Present</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">Blockchain researchers had a working proof-of-concept but no repeatable way to get its output into a production system reliably.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">Exponential Science works on blockchain research; the team needed the POC turned into a real data product, including a stablecoin project tied to a financial index.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Data Engineer collaborating directly with the blockchain research team, owning the pipeline that carries their output into production.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Built a Databricks pipeline with four explicit stages — fetch, transform, extract features, load — ending in a production database rather than a notebook.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">Python</span><span class="tag">Databricks</span><span class="tag">Data Catalog</span><span class="tag">TimescaleDB</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">Feature extraction from raw blockchain data as a distinct pipeline stage; datasets registered in a Data Catalog for discoverability; time-series-shaped output suited to Timescale storage for the financial index.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v"><span class="badge-warn">Detail needed</span> — the CV doesn't specify what made research code hard to productionize (data quality from chain sources? schema instability? volume?). Worth one sentence from you.</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">Standardizing the pipeline into named stages (fetch/transform/extract/load) so the research team's output has one repeatable path into production.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v"><span class="badge-warn">Metric needed</span> — e.g. pipeline run frequency, data volume/latency, or "supports the [X] stablecoin index in production."</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">How to operationalize research-grade code into a system other people (and a live financial product) depend on — the gap between "it worked once" and "it runs on a schedule."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 2: DLT Science Foundation -->
+<section id="case-dlt">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 02 · Flagship</div>
+      <h3>DLT Science Foundation — end-to-end ETL on AWS + Databricks</h3>
+      <div class="meta">Data Engineer · October 2023 – April 2025</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">Raw data from multiple sources needed a reliable path to storage and analysis — ingestion, transformation, scheduling, and monitoring, not just one-off scripts.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">18-month role as the team's Data Engineer, owning ETL solutions and data pipelines end to end.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Sole-credited Data Engineer: designed, developed, and maintained the pipelines; also supported AWS infrastructure provisioning and ran exploratory data analysis on the raw inputs.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Python-based processing (Pandas, PySpark, Polars, SQLAlchemy, NumPy) feeding AWS storage/compute (S3, Lambda, EC2, Athena, RDS), with Databricks handling scheduling and orchestration and PostgreSQL/TimescaleDB as the analytical store.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">PySpark</span><span class="tag">Polars</span><span class="tag">SQLAlchemy</span><span class="tag">NumPy</span><span class="tag">AWS S3</span><span class="tag">AWS Lambda</span><span class="tag">AWS EC2</span><span class="tag">AWS Athena</span><span class="tag">AWS RDS</span><span class="tag">Databricks</span><span class="tag">PostgreSQL</span><span class="tag">TimescaleDB</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">Running multiple Python libraries side-by-side (Pandas/PySpark/Polars) suggests deliberate tool choice by workload size rather than a single default; ongoing performance monitoring was an explicit part of the role, not an afterthought.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v"><span class="badge-warn">Detail needed</span> — a concrete bottleneck (e.g. a slow pipeline stage, a data quality issue caught via EDA) would anchor this case study.</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">Databricks-based scheduling/orchestration replacing ad hoc execution, paired with performance monitoring to catch regressions.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v"><span class="badge-warn">Metric needed</span> — e.g. number of pipelines maintained, data volume/frequency, or a specific efficiency gain from moving to orchestrated scheduling.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">Full-stack ownership of a data platform — ingestion, transformation, storage, orchestration, and monitoring — rather than one slice of the pipeline.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 3: Tenos -->
+<section id="case-tenos">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 03</div>
+      <h3>Tenos — flow-process database integrity and stakeholder reporting</h3>
+      <div class="meta">Data Analyst Intern · April 2023 – September 2023</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">A flow-process database lacked structured management, and stakeholders had no consistent way to see what was happening in the data.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">Internship focused on database management and dashboarding ahead of a full-time Data Engineer track.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Owned database organization, data quality validation, dashboard build, and stakeholder reporting.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Streamlined collection, storage, and retrieval procedures; layered data quality checks and validation protocols on top; built interactive dashboards for real-time stakeholder visibility.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">PostgreSQL</span><span class="tag">Pentaho</span><span class="tag">Power BI</span><span class="tag">Looker Studio</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">Validation protocols specifically aimed at data accuracy (not just visualization polish); reports customized per stakeholder rather than a single generic view.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v"><span class="badge-warn">Detail needed</span> — what was wrong with the database before (duplicate records? missing validation? stale reporting)?</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">Data quality checks at the point of collection, plus dashboards designed around what each stakeholder actually needed to see.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v"><span class="badge-warn">Metric needed</span> — e.g. reporting turnaround time before/after, or number of stakeholder dashboards delivered.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">Data quality and stakeholder communication as first-class engineering concerns — the habit that later shows up as "performance monitoring" at DLT Science Foundation.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 4: Datathon -->
+<section id="case-datathon">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 04 · Math → DE centerpiece</div>
+      <h3>Datathon Kecerdasan Artifisial 2021 — PPKM policy effectiveness (EDA + clustering)</h3>
+      <div class="meta">National finalist, Top 10 of 187 teams · Team lead · August 2021</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">Quantify whether Indonesia's PPKM social-restriction policy actually reduced workplace mobility and community transmission across Java's six provinces — evidence the government could use to decide whether to keep the policy.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">National AI/data competition (team "Alpaca," 3 Mathematics students); led the team and the analysis.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Team lead: defined the analytical approach, ran the correlation and clustering analysis, and produced the final report.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Merged Indonesian Ministry of Health case/hospitalization/death data with Google COVID-19 Community Mobility data; ran Pearson correlation to test relationships, then K-Means clustering (with silhouette analysis to pick the cluster count) to segment provinces by transmission severity.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">Python</span><span class="tag">Pearson correlation</span><span class="tag">K-Means clustering</span><span class="tag">Silhouette analysis</span><span class="tag">EDA</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">Correlation results: confirmed cases vs. workplace mobility <strong>r = −0.52</strong>; hospitalizations vs. workplace mobility <strong>r = −0.88</strong>; no meaningful correlation between deaths and workplace mobility. Selected <strong>k = 4</strong> clusters via silhouette analysis (<strong>score 0.514</strong>), segmenting provinces into low / moderate / high / very-high transmission tiers.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v">Reconciling two public datasets on different time windows and granularity (health-ministry data vs. Google mobility data), and choosing a defensible, non-arbitrary number of clusters rather than picking one by eye.</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">Silhouette coefficient analysis to statistically justify k = 4 instead of guessing; a correlation heatmap to validate which variables were worth clustering on before running K-Means.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v">Top 10 national finalist out of 187 teams. Found that DKI Jakarta's workplace mobility fell <strong>52.20%</strong> versus baseline during Emergency PPKM, and that by the fourth week of PPKM Level, community transmission had dropped to low across Java provinces except D.I. Yogyakarta.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">This is the clearest through-line from Mathematics to Data Engineering: correlation and cluster validation aren't classroom exercises here, they're how you make an evidence-based case on a real policy question — the same rigor now applied to validating pipeline output rather than public health data.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 5: Thesis -->
+<section id="case-thesis">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 05</div>
+      <h3>Undergraduate thesis — feature engineering for YouTube spam detection</h3>
+      <div class="meta">Mathematics thesis · Random Forest · 2019 Indonesian presidential election dataset</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">YouTube comment sections during the 2019 Indonesian presidential election were flooded with spam, drowning out genuine public discourse.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">Undergraduate thesis, Mathematics major: "Feature Engineering Analysis for Detecting Spam Comments on YouTube during the 2019 Indonesian Presidential Election Using Random Forest."</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Sole researcher — designed the feature set and ran the classification.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Engineered features from raw comment text, then trained a Random Forest classifier to separate spam from genuine comments.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">Python</span><span class="tag">Random Forest</span><span class="tag">Feature engineering</span><span class="tag">Text/NLP preprocessing</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">The thesis's specific contribution was the feature engineering step itself — testing which engineered features actually improved spam-detection performance, rather than using a single off-the-shelf feature set.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v">Informal, code-mixed Bahasa Indonesia comment text and (typically for spam detection) a class imbalance between spam and genuine comments. <span class="badge-warn">Confirm</span> if imbalance handling was part of the method.</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">Iterating on the feature set specifically for this noisy, informal text domain rather than applying a generic NLP pipeline.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v"><span class="badge-warn">Metric needed</span> — accuracy / precision / recall / F1 from the thesis would make this case study concrete.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">Applied ML feature engineering on a real socio-political text problem — direct groundwork for the feature-extraction stage of the Exponential Science pipeline.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 6: Tanamify -->
+<section id="case-tanamify">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 06</div>
+      <h3>Bangkit 2021 capstone — Tanamify</h3>
+      <div class="meta">Cloud Computing learning path · Cross-university, cross-discipline team · Feb–June 2021</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">Plant enthusiasts needed a simple prototype application to support plant care, built as part of a national-development-themed capstone.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">Bangkit 2021 (Google-backed Indonesian tech academy), Cloud Computing learning path, grouped with students from other learning paths (ML, mobile) and other universities.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Cloud Computing contributor within a cross-functional, cross-university team.</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Built the backend/cloud layer of the prototype on Google Cloud Platform, supporting a Spring Boot service and PostgreSQL data layer.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="tag">Python</span><span class="tag">PostgreSQL</span><span class="tag">Google Cloud Platform</span><span class="tag">Spring Boot</span><span class="tag">Git</span></div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v"><span class="badge-warn">Detail needed</span> — which specific piece did you build (an API, the DB schema, deployment/hosting on GCP)? One or two sentences here would strengthen this case study a lot.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v">Coordinating a working prototype across a temporary, cross-university, cross-discipline team on a fixed program timeline.</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v"><span class="badge-warn">Detail needed</span> — how the team split ML/mobile/cloud responsibilities and integrated them.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v">Delivered a working capstone prototype within Bangkit's ~5-month program. <span class="badge-warn">Metric needed</span> if there was a demo day score, user count, or mentor feedback worth citing.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">Cross-functional collaboration across disciplines and institutions, plus the fundamentals of a cloud-native application's backend layer.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 7: HoPo -->
+<section id="case-hopo">
+  <div class="case">
+    <div class="case-head">
+      <div class="idx">Case 07</div>
+      <h3>COMPFEST14 — HoPo, an itinerary recommender</h3>
+      <div class="meta">National AI Innovation Challenge finalist · Team lead · November 2022</div>
+    </div>
+    <div class="case-body">
+      <div class="field"><div class="k">Problem</div><div class="v">Travelers planning multi-day trips struggle to sequence attractions efficiently — visiting places that are far apart on the same day wastes time.</div></div>
+      <div class="field"><div class="k">Context</div><div class="v">COMPFEST14 Artificial Intelligence Competition, national finalist.</div></div>
+      <div class="field"><div class="k">My role</div><div class="v">Team lead for "HoPo — Your Holiday in Your Pocket."</div></div>
+      <div class="field"><div class="k">Approach / architecture</div><div class="v">Built a recommender that suggests attractions for a destination city and trip duration, grouping same-day attractions by geographic proximity rather than listing them independently.</div></div>
+      <div class="field"><div class="k">Technologies used</div><div class="v"><span class="badge-warn">Detail needed</span> — confirm the stack (language, recommendation/optimization approach, web framework) so it can be listed accurately.</div></div>
+      <div class="field"><div class="k">Key implementation details</div><div class="v">The core logic is an applied grouping/optimization problem: partitioning attractions into day-sized, geographically coherent clusters given a duration constraint.</div></div>
+      <div class="field"><div class="k">Challenges</div><div class="v"><span class="badge-warn">Detail needed</span> — what made the grouping/ranking logic hard (data availability on attractions, distance calculation, competition time constraints)?</div></div>
+      <div class="field"><div class="k">Solution</div><div class="v">A proximity-based grouping approach so each day's plan stays geographically efficient rather than scattered.</div></div>
+      <div class="field"><div class="k">Results / impact</div><div class="v">National finalist, AI Innovation Challenge, COMPFEST14.</div></div>
+      <div class="field"><div class="k">What I learned</div><div class="v">Applying algorithmic/optimization thinking to a consumer-facing product, and leading a team under competition time pressure.</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" style="margin:56px 0;">
+
+<section id="canva">
+  <span class="eyebrow">06 — Canva PDF blueprint</span>
+  <h2>Page-by-page structure for the Canva PDF</h2>
+  <p class="dek">14 pages, sized for a portrait A4/Letter deck. Recommended palette: ink <span class="tag">#151A17</span>, paper <span class="tag">#F5F6F4</span>, accent teal <span class="tag">#1F6F5C</span>, warm highlight <span class="tag">#A9662A</span> (used sparingly, e.g. metric callouts). Fonts: <span class="tag">Newsreader</span> for headings, <span class="tag">IBM Plex Sans</span> for body, <span class="tag">IBM Plex Mono</span> for labels/tech tags — all three are on Canva's font list.</p>
+
+  <div class="pagelist">
+    <div class="pageitem"><div class="num">01</div><div class="ptitle">Cover</div><div class="pvisual">Name, "Data Engineer," the recommended tagline. Minimal — a single accent-colored geometric line or dot grid motif (evokes a pipeline/graph), not a busy background. Contact icons (email, GitHub, LinkedIn) small, bottom edge.</div></div>
+    <div class="pageitem"><div class="num">02</div><div class="ptitle">How I work (positioning)</div><div class="pvisual">The positioning paragraph from this doc, condensed to 3–4 lines, plus 4 keyword pillars as small cards: Scalable Pipelines · Cloud-Native · Statistical Rigor · Production Ownership.</div></div>
+    <div class="pageitem"><div class="num">03</div><div class="ptitle">About me</div><div class="pvisual">Headshot (crop the circular CV photo tighter, or use a new one — see Gaps), long bio, quick-facts sidebar: location, 2+ yrs experience, current focus.</div></div>
+    <div class="pageitem"><div class="num">04</div><div class="ptitle">Mathematics → Data Engineering</div><div class="pvisual">A horizontal 3-step timeline: Mathematics training → Quantitative competitions (Datathon, thesis) → Data Engineering career. Under it, 4 paired tags: Statistics → data validation, Algorithmic thinking → pipeline logic, Optimization → query/pipeline performance, Modeling → feature engineering.</div></div>
+    <div class="pageitem"><div class="num">05</div><div class="ptitle">Technical skills</div><div class="pvisual">The skill groups from §03, as labeled tag clusters (not fake percentage bars — you have no verified proficiency scale, so grouped tags read as more honest and more scannable).</div></div>
+    <div class="pageitem"><div class="num">06</div><div class="ptitle">Professional experience</div><div class="pvisual">Vertical timeline, 4 roles, one achievement line each (reuse §04 timeline copy). Use the accent color for role titles, muted grey for dates.</div></div>
+    <div class="pageitem"><div class="num">07</div><div class="ptitle">Case study — Exponential Science</div><div class="pvisual">Full case-study layout: problem/context at top, architecture as a simple 4-box flow diagram (Fetch → Transform → Extract features → Load), tech stack tags, results box left empty/flagged until a metric is added.</div></div>
+    <div class="pageitem"><div class="num">08</div><div class="ptitle">Case study — DLT Science Foundation</div><div class="pvisual">Same template as page 7. Architecture box: raw sources → Python processing → AWS (S3/Lambda/EC2/Athena/RDS) → Databricks orchestration → Postgres/Timescale.</div></div>
+    <div class="pageitem"><div class="num">09</div><div class="ptitle">Case study — Datathon PPKM analysis</div><div class="pvisual">This page can carry real charts — recreate (don't screenshot) a clean version of the correlation heatmap and a simplified cluster scatter as branded infographics in your palette, plus the r = −0.52 / −0.88 and silhouette 0.514 figures as callout numbers.</div></div>
+    <div class="pageitem"><div class="num">10</div><div class="ptitle">Additional projects (1/2)</div><div class="pvisual">Condensed 2-up cards: Tenos and Thesis, each with problem → approach → result in 3 lines.</div></div>
+    <div class="pageitem"><div class="num">11</div><div class="ptitle">Additional projects (2/2)</div><div class="pvisual">Condensed 2-up cards: Tanamify and HoPo, same 3-line format.</div></div>
+    <div class="pageitem"><div class="num">12</div><div class="ptitle">Honors &amp; recognition</div><div class="pvisual">Two entries as clean badges: "Top 10 / 187 — Datathon KA 2021" and "National Finalist — COMPFEST14." Consider a redesigned certificate-style badge rather than the original certificate scans (those read as academic, not portfolio-grade).</div></div>
+    <div class="pageitem"><div class="num">13</div><div class="ptitle">Education &amp; continuous learning</div><div class="pvisual">Mathematics major, UIN Syarif Hidayatullah, GPA 3.45, thesis title; Bangkit 2021 as a structured learning program. Leave a slot for certifications once pursued (see Gaps).</div></div>
+    <div class="pageitem"><div class="num">14</div><div class="ptitle">Contact</div><div class="pvisual">Email, GitHub, LinkedIn, a one-line call to action ("Open to Data Engineering / Data Platform roles"). Mirror the cover's minimal style so the deck opens and closes on the same visual note.</div></div>
+  </div>
+</section>
+
+<section id="website">
+  <span class="eyebrow">07 — Website copy</span>
+  <h2>rayhanendra.com — section-by-section copy</h2>
+  <p class="dek">Ready-to-paste copy for each section you listed. Written for a recruiter or engineer skimming in under two minutes.</p>
+
+  <div class="websec">
+    <h4>Hero</h4>
+    <div class="copy">
+      <blockquote>Dewi Rizki Fitriani<br>Data Engineer</blockquote>
+      <p style="margin-top:10px;">"Data Engineer with a mathematics foundation — turning raw, unproven data into pipelines that run in production." Sub-line: "Currently building production data pipelines at Exponential Science. Previously: DLT Science Foundation."</p>
+    </div>
+  </div>
+
+  <div class="websec">
+    <h4>About</h4>
+    <div class="copy"><p>Use the long bio from §02 verbatim. Close the section with one line naming the math → DE bridge so it's established before Skills/Experience: "My Mathematics background isn't background — it's why I validate before I ship."</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Technical skills</h4>
+    <div class="copy"><p>Reuse the grouped tag clusters from §03. Keep the grouping (Languages, Cloud, Orchestration, Databases, Analytics, Statistics) — it reads as more deliberate than one flat tag cloud.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Professional experience</h4>
+    <div class="copy"><p>Reuse the §04 timeline. On the web this can be a simple reverse-chronological list with role, company, dates, and 2–3 bullet points per role — no need to compress further than the CV bullets already are.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Featured projects <span class="badge-warn" style="margin-left:6px;">Homepage</span></h4>
+    <div class="copy"><p>Three cards, title + one-sentence hook + tech tags + "Read case study" link: Exponential Science ("Blockchain POC → production pipeline"), DLT Science Foundation ("End-to-end ETL on AWS + Databricks"), Datathon PPKM ("Top 10/187 — statistics on a real policy question"). See §09 for the full placement logic.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Data Engineering projects</h4>
+    <div class="copy"><p>Full case studies for Exponential Science and DLT Science Foundation (§ case-exp, case-dlt), each as its own page or expandable section using the problem/approach/tech/results structure.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Data / Analytics projects</h4>
+    <div class="copy"><p>Full case studies for the Datathon PPKM analysis, Tenos, and the thesis (§ case-datathon, case-tenos, case-thesis) — this is where the statistics and BI work lives, separate from production DE work.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Architecture / technical case studies</h4>
+    <div class="copy"><p>A deeper, diagram-first treatment of the two pipeline architectures: Exponential Science's fetch → transform → extract-features → load flow, and DLT Science Foundation's raw sources → Python → AWS → Databricks → Postgres/Timescale flow. This section exists to show system thinking, not just a tool list — worth investing in real architecture diagrams here (see Gaps).</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Education</h4>
+    <div class="copy"><p>Mathematics, UIN Syarif Hidayatullah (GPA 3.45) — thesis title, plus the two named coursework projects (ARIMA unemployment/economic-growth analysis; SVM hate-speech detection). Frame as "Selected coursework" rather than burying them as a GPA line.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Certifications / learning</h4>
+    <div class="copy"><p>Bangkit 2021 (Cloud Computing learning path) as a structured program credential. <span class="badge-warn">Gap</span> — no formal certifications currently on the CV; see §10 for a recommendation.</p></div>
+  </div>
+
+  <div class="websec">
+    <h4>Contact</h4>
+    <div class="copy"><p>Email (dewirizkiftrn@gmail.com), GitHub (dewirizki), LinkedIn (dewirizkifitriani). Decide deliberately whether the YouTube channel belongs here — it reads as Kodland-tutoring content, which may or may not fit the Data Engineer brand (see Gaps).</p></div>
+  </div>
+</section>
+
+<section id="placement">
+  <span class="eyebrow">08 — Placement</span>
+  <h2>Homepage vs. deep-dive pages</h2>
+  <p class="dek">What a recruiter sees in the first ten seconds versus what a technical reviewer digs into afterward.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Project</th><th>Homepage (Featured)</th><th>Deep-dive page</th></tr>
+      <tr><td>Exponential Science</td><td>Yes — lead card</td><td>Full case study under Data Engineering Projects + Architecture</td></tr>
+      <tr><td>DLT Science Foundation</td><td>Yes — second card</td><td>Full case study under Data Engineering Projects + Architecture</td></tr>
+      <tr><td>Datathon PPKM</td><td>Yes — third card</td><td>Full case study under Data / Analytics Projects</td></tr>
+      <tr><td>Tenos</td><td>No</td><td>Data / Analytics Projects</td></tr>
+      <tr><td>Thesis</td><td>No</td><td>Data / Analytics Projects</td></tr>
+      <tr><td>Tanamify</td><td>No</td><td>Optional "Other projects" strip, condensed card only</td></tr>
+      <tr><td>HoPo</td><td>No</td><td>Optional "Other projects" strip, condensed card only</td></tr>
+    </table>
+  </div>
+  <p class="prose" style="margin-top:16px;">Three homepage cards is deliberate — recruiters decide in seconds, and three strong, distinct signals (production pipeline work × 2, one quantitative win) reads stronger than seven competing for attention. Tanamify and HoPo are real and worth keeping, but as light-touch proof of range rather than headline material.</p>
+</section>
+
+<section id="gaps">
+  <span class="eyebrow">09 — Gaps &amp; next steps</span>
+  <h2>What's missing before this is finished</h2>
+  <p class="dek">Nothing here was invented, which means these are the honest holes. Closing even three or four of these will do more for the portfolio than any layout choice.</p>
+  <div class="checklist">
+    <div class="checkitem"><div class="box"></div><div><div class="t">Quantify the two flagship roles</div><div class="d">Exponential Science and DLT Science Foundation currently have zero metrics — no data volume, latency, pipeline count, or uptime. This is the single highest-impact gap: a recruiter weighs "built pipelines" far less than "built pipelines processing X records/day" or "cut manual processing by Y%."</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Confirm the requested stack you don't yet show</div><div class="d">Your brief asks to highlight AWS Kinesis, Docker, CI/CD, microservices, and real-time processing — none appear in the CV. Either they exist and weren't listed (tell me and I'll fold them in), or they're a real skill gap worth a small demonstration project (e.g. a Dockerized pipeline with Kinesis + Lambda + GitHub Actions CI/CD) before you lean on them in interviews.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Add architecture diagrams</div><div class="d">Both flagship case studies describe a pipeline shape (fetch→transform→extract→load; sources→AWS→Databricks→storage) but have no diagram. A clean, branded diagram for each does more work than another paragraph of text.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Get a formal certification</div><div class="d">No AWS, Databricks, or cloud certification currently appears. One (AWS Certified Data Engineer – Associate, or a Databricks certification) would directly back up the tools you already use daily.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Fill in the four flagged case-study details</div><div class="d">Exponential Science's specific challenge, DLT's concrete bottleneck, Tanamify's exact backend contribution, and HoPo's actual tech stack are all marked "Detail needed" above — each is one or two sentences from you.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Get the thesis result</div><div class="d">The spam-detection thesis is a strong ML story with no accuracy/F1 number attached. If it's in the thesis document, it's worth pulling out.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Decide on the YouTube channel</div><div class="d">Linked from the CV, presumably Kodland-era tutoring content. Include it only if it reinforces the Data Engineer brand (e.g. technical explainers); otherwise leave it off the portfolio.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Check the headshot</div><div class="d">The CV photo is small and circular-cropped. Canva's About page and the website hero will both want a higher-resolution version.</div></div></div>
+    <div class="checkitem"><div class="box"></div><div><div class="t">Confirm what "Apple Developer Program" actually requires</div><div class="d">That program is typically evaluated on submitted apps/products, not a Data Engineering case-study portfolio. Worth double-checking the program's actual submission format so this portfolio is pointed at the right target alongside it.</div></div></div>
+  </div>
+</section>
+
+</main>
+</div>
