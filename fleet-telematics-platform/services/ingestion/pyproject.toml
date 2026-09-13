@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "fleet-ingestion"
+version = "0.1.0"
+description = "Normalizes live GTFS-Realtime and NYC TLC vehicle telemetry into the canonical VehiclePositionEvent schema and publishes to Kafka/Redpanda."
+authors = ["Dewi Rizki Fitriani <dewirizkiftrn@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "ingestion" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+confluent-kafka = "^2.5.3"
+gtfs-realtime-bindings = "^1.0.0"
+httpx = "^0.27.2"
+pydantic = "^2.9.2"
+pydantic-settings = "^2.5.2"
+structlog = "^24.4.0"
+tenacity = "^9.0.0"
+pandas = "^2.2.3"
+pyarrow = "^17.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+ruff = "^0.6.9"
+mypy = "^1.11.2"
+
+[tool.poetry.scripts]
+run-gtfs-rt-producer = "ingestion.gtfs_rt_producer:main"
+run-nyc-tlc-producer = "ingestion.nyc_tlc_producer:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+disallow_untyped_defs = true

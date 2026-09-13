@@ -5,6 +5,7 @@ Documenting my journey into data engineering through small projects, experiments
 
 - `index.html`, `assets/` — the portfolio website (static, no build step).
 - `portfolio-blueprint.html` — the working content package: positioning, 7 project case studies, the Canva PDF page-by-page plan, and website copy, all sourced from the CV/competition paper.
+- `fleet-telematics-platform/` — independent project: a real-time IoT fleet telematics & spatial intelligence platform (Kafka/Redpanda, PySpark/Flink, Uber H3, ClickHouse, FastAPI, Streamlit/Grafana), structured as a Poetry monorepo. Start at [`fleet-telematics-platform/docs/PRD.md`](fleet-telematics-platform/docs/PRD.md) and [`ARCHITECTURE.md`](fleet-telematics-platform/docs/ARCHITECTURE.md); written up on the site at `index.html#fleet-telematics`.
 - `.github/workflows/deploy.yml` — deploys `index.html` to GitHub Pages on every push to `main`.
 
 ## Deploying

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Poetry
+poetry.lock.bak
+
+# Spark / streaming checkpoints
+checkpoints/
+spark-warehouse/
+derby.log
+metastore_db/
+
+# Local env files
+.env
+!.env.example
+
+# Data extracts / fixtures too large to commit
+*.parquet
+!services/ingestion/fixtures/*.parquet
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

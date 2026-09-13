@@ -1,0 +1,11 @@
+{"vehicle_id": "MTA-B41-001", "route_id": "B41", "trip_id": "B41-wk-0601", "source": "gtfs_rt", "lat": 40.6892, "lon": -73.9442, "speed_mps": 9.8, "bearing_deg": 182.0, "event_time": "2026-09-13T12:00:00Z"}
+{"vehicle_id": "MTA-B41-002", "route_id": "B41", "trip_id": "B41-wk-0602", "source": "gtfs_rt", "lat": 40.6905, "lon": -73.9438, "speed_mps": 10.4, "bearing_deg": 180.5, "event_time": "2026-09-13T12:00:05Z"}
+{"vehicle_id": "MTA-B41-003", "route_id": "B41", "trip_id": "B41-wk-0603", "source": "gtfs_rt", "lat": 40.6878, "lon": -73.9451, "speed_mps": 8.9, "bearing_deg": 185.0, "event_time": "2026-09-13T12:00:10Z"}
+{"vehicle_id": "MTA-Q58-101", "route_id": "Q58", "trip_id": "Q58-wk-0201", "source": "gtfs_rt", "lat": 40.7282, "lon": -73.8815, "speed_mps": 11.2, "bearing_deg": 95.0, "event_time": "2026-09-13T12:00:00Z"}
+{"vehicle_id": "MTA-Q58-102", "route_id": "Q58", "trip_id": "Q58-wk-0202", "source": "gtfs_rt", "lat": 40.7290, "lon": -73.8802, "speed_mps": 10.9, "bearing_deg": 97.0, "event_time": "2026-09-13T12:00:05Z"}
+{"vehicle_id": "MTA-Q58-103", "route_id": "Q58", "trip_id": "Q58-wk-0203", "source": "gtfs_rt", "lat": 40.7275, "lon": -73.8829, "speed_mps": 34.7, "bearing_deg": 96.0, "event_time": "2026-09-13T12:00:10Z"}
+{"vehicle_id": "MTA-M15-201", "route_id": "M15", "trip_id": "M15-wk-0301", "source": "gtfs_rt", "lat": 40.7489, "lon": -73.9680, "speed_mps": 6.3, "bearing_deg": 10.0, "event_time": "2026-09-13T12:00:00Z"}
+{"vehicle_id": "MTA-M15-202", "route_id": "M15", "trip_id": "M15-wk-0302", "source": "gtfs_rt", "lat": 40.7502, "lon": -73.9675, "speed_mps": 7.1, "bearing_deg": 8.0, "event_time": "2026-09-13T12:00:05Z"}
+{"vehicle_id": "MTA-M15-203", "route_id": "M15", "trip_id": "M15-wk-0303", "source": "gtfs_rt", "lat": 40.7475, "lon": -73.9689, "speed_mps": 5.8, "bearing_deg": 12.0, "event_time": "2026-09-13T12:00:10Z"}
+{"vehicle_id": "MTA-B41-004", "route_id": "B41", "trip_id": "B41-wk-0604", "source": "gtfs_rt", "lat": 40.6861, "lon": -73.9463, "speed_mps": 0.4, "bearing_deg": 178.0, "event_time": "2026-09-13T12:00:10Z"}
+{"vehicle_id": "MTA-Q58-104", "route_id": "Q58", "trip_id": "Q58-wk-0204", "source": "gtfs_rt", "lat": 40.7268, "lon": -73.8841, "speed_mps": 12.0, "bearing_deg": 94.0, "event_time": "2026-09-13T12:00:15Z"}

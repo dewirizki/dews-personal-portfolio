@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "fleet-telematics-platform"
+version = "0.1.0"
+description = "Root dev-tooling project for the monorepo. Each service under services/ has its own independently installable pyproject.toml -- see README.md for why Poetry is used per-service rather than as a single workspace."
+authors = ["Dewi Rizki Fitriani <dewirizkiftrn@gmail.com>"]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.9"
+mypy = "^1.11.2"
+pytest = "^8.3.3"
+pre-commit = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [".venv", "**/fixtures/**"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -138,7 +138,7 @@
   <div class="wrap">
     <span class="eyebrow">Featured projects</span>
     <h2>What I've built</h2>
-    <p class="dek">Three projects that best represent production pipeline work and the quantitative habit behind it. Full write-ups below.</p>
+    <p class="dek">Four projects that best represent production pipeline work and the quantitative habit behind it. Full write-ups below.</p>
     <div class="cardgrid">
       <div class="pcard">
         <h3>Exponential Science</h3>
@@ -157,6 +157,12 @@
         <p class="hook">Correlation and K-Means clustering on COVID-19 policy data — a national finalist analysis.</p>
         <div><span class="tag">Python</span><span class="tag">K-Means</span><span class="tag">EDA</span></div>
         <a class="readmore" href="#datathon">Read case study →</a>
+      </div>
+      <div class="pcard">
+        <h3>Fleet Telematics Platform <span class="badge">Independent build</span></h3>
+        <p class="hook">Real-time IoT fleet telemetry: live GPS → Kafka → PySpark/Flink → H3 spatial indexing → ClickHouse, queryable in under 30 seconds.</p>
+        <div><span class="tag">Kafka/Redpanda</span><span class="tag">PySpark</span><span class="tag">Uber H3</span><span class="tag">ClickHouse</span></div>
+        <a class="readmore" href="#fleet-telematics">Read case study →</a>
       </div>
     </div>
   </div>
@@ -238,6 +244,52 @@
         <div class="field"><div class="k">Tech stack</div><div class="v"><span class="tag">Python</span><span class="tag">Random Forest</span><span class="tag">Feature engineering</span></div></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="fleet-telematics-project">
+  <div class="wrap">
+    <span class="eyebrow">Independent project</span>
+    <h2>Real-time IoT fleet telematics &amp; spatial intelligence platform</h2>
+    <p class="dek">A self-directed build applying the streaming and quantitative background above to a production-shaped real-time system: live vehicle GPS ingested from public transit/TLC feeds, indexed spatially, and served with sub-30-second latency. Structured as a Poetry monorepo with an independent, reviewable service per stage. Full source, PRD, and architecture docs are in the <a href="https://github.com/dewirizki/dews-personal-portfolio/tree/main/fleet-telematics-platform" target="_blank" rel="noopener">fleet-telematics-platform</a> directory of this repo.</p>
+
+    <div class="case" id="fleet-telematics">
+      <div class="case-head">
+        <h3>Fleet Telematics Platform — live GPS to sub-30s spatial queries</h3>
+        <div class="meta">Independent build · Poetry monorepo · 2026</div>
+      </div>
+      <div class="case-body">
+        <div class="field"><div class="k">Problem</div><div class="v">Fleet operators get a firehose of GPS pings but rarely turn it into what a dispatcher actually needs in seconds: where vehicle density is clustering right now, at block-level resolution, and which vehicles are behaving abnormally relative to the traffic immediately around them — not a fixed, context-blind speed threshold.</div></div>
+        <div class="field"><div class="k">Approach</div><div class="v">Normalized two structurally different live/replayed sources (GTFS-Realtime <code>VehiclePosition</code> feeds and NYC TLC trip records) into one canonical event schema published to Kafka/Redpanda. A PySpark Structured Streaming job (with a parallel PyFlink reference implementation) H3-indexes every event at resolution 9 (block-level) and its resolution-8 parent, computes 5-minute/1-minute-slide windowed density per cell, then runs a watermarked stream-stream join back onto the raw stream so each event is scored against its <em>own local cell's</em> current mean/stddev — flagging speed anomalies by z-score rather than a global threshold.</div></div>
+        <div class="field"><div class="k">Data model</div><div class="v">ClickHouse, spatial-key-first ordering (<code>ORDER BY h3_r8, h3_r9, event_time</code>) so a viewport+time query reads one contiguous range; a <code>ReplacingMergeTree</code> density rollup fed directly by Spark's <code>foreachBatch</code>; native H3 functions (<code>h3kRing</code>, <code>h3ToParent</code>) doing ring/neighbor expansion at query time only, since indexing was already done once at write time.</div></div>
+        <div class="field"><div class="k">Tech stack</div><div class="v"><span class="tag">Kafka/Redpanda</span><span class="tag">PySpark Structured Streaming</span><span class="tag">PyFlink</span><span class="tag">Uber H3</span><span class="tag">ClickHouse</span><span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">Grafana</span><span class="tag">Poetry</span></div></div>
+        <div class="field"><div class="k">Docs &amp; code</div><div class="v"><a href="https://github.com/dewirizki/dews-personal-portfolio/blob/main/fleet-telematics-platform/docs/PRD.md" target="_blank" rel="noopener">PRD</a> · <a href="https://github.com/dewirizki/dews-personal-portfolio/blob/main/fleet-telematics-platform/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture doc</a> · <a href="https://github.com/dewirizki/dews-personal-portfolio/blob/main/fleet-telematics-platform/services/stream_processing/stream_processing/streaming_job.py" target="_blank" rel="noopener">Streaming job</a> · <a href="https://github.com/dewirizki/dews-personal-portfolio/blob/main/fleet-telematics-platform/infra/clickhouse/init/01_schema.sql" target="_blank" rel="noopener">ClickHouse schema</a></div></div>
+        <div class="field"><div class="k">What I learned</div><div class="v">Where the math background pays off directly: a fixed speed threshold is a bad anomaly detector because "normal" varies by place and time of day — scoring against a rolling local mean/stddev per spatial cell (via a watermarked stream-stream join, not a simple aggregation) is what makes the alert statistically meaningful instead of noisy.</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.1rem;margin:34px 0 6px;">Pipeline architecture</h3>
+    <div class="flow">
+      <div class="step">GTFS-RT / NYC TLC</div><div class="arrow">→</div>
+      <div class="step">Kafka / Redpanda</div><div class="arrow">→</div>
+      <div class="step">PySpark: H3 index (res 9/8)</div><div class="arrow">→</div>
+      <div class="step">5-min windowed density + z-score anomaly join</div><div class="arrow">→</div>
+      <div class="step">ClickHouse</div><div class="arrow">→</div>
+      <div class="step">FastAPI → Streamlit / Grafana</div>
+    </div>
+
+    <h3 style="font-size:1.1rem;margin:34px 0 6px;">Sample pipeline output</h3>
+    <div class="resultgrid">
+      <figure class="result">
+        <img src="assets/images/fleet-telematics-h3-density.png" alt="H3 resolution-9 hexagon map colored by vehicle density over a 5-minute window, with the three densest cells labeled">
+        <figcaption>5-minute rolling vehicle density per H3-r9 cell — the direct output of <code>h3_density_5min_current</code>.</figcaption>
+      </figure>
+      <figure class="result">
+        <img src="assets/images/fleet-telematics-speed-anomaly.png" alt="Line chart of one vehicle's speed against its local H3 cell's mean speed band, with a WARNING and a CRITICAL anomaly point flagged">
+        <figcaption>Per-vehicle speed vs. local H3-cell traffic — the stream-stream join's WARNING/CRITICAL anomaly output.</figcaption>
+      </figure>
+    </div>
+    <p class="dek" style="margin-top:14px;font-size:0.85rem;">Illustrative captures generated from data shaped like a live run (<code>scripts/generate_sample_visualizations.py</code>) — the interactive versions are the Streamlit dashboard and Grafana boards in the repo.</p>
   </div>
 </section>
 

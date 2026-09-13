@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "fleet-api"
+version = "0.1.0"
+description = "FastAPI query layer over ClickHouse -- serves density, anomaly, and vehicle-lookup endpoints for the Streamlit dashboard and Grafana."
+authors = ["Dewi Rizki Fitriani <dewirizkiftrn@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "api" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.0"
+uvicorn = { extras = ["standard"], version = "^0.31.0" }
+clickhouse-connect = "^0.8.3"
+h3 = "^4.1.2"
+pydantic-settings = "^2.5.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+httpx = "^0.27.2"
+ruff = "^0.6.9"
+
+[tool.poetry.scripts]
+run-api = "api.main:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

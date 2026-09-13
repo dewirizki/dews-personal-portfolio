@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "fleet-stream-processing"
+version = "0.1.0"
+description = "Structured Streaming job: consumes raw vehicle positions, indexes to H3, computes 5-minute rolling density and speed-anomaly alerts, writes to ClickHouse. Includes a PyFlink DataStream reference implementation of the same pipeline."
+authors = ["Dewi Rizki Fitriani <dewirizkiftrn@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "stream_processing" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyspark = "^3.5.3"
+h3 = "^4.1.2"
+clickhouse-connect = "^0.8.3"
+structlog = "^24.4.0"
+
+[tool.poetry.group.flink.dependencies]
+apache-flink = "^1.20.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+ruff = "^0.6.9"
+mypy = "^1.11.2"
+
+[tool.poetry.scripts]
+run-streaming-job = "stream_processing.streaming_job:main"
+run-flink-job = "stream_processing.flink_job:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
