@@ -15,4 +15,4 @@ This repo deploys via GitHub Actions + GitHub Pages. One manual step is required
 1. Push this repo to GitHub (already set up if you're reading this from the repo).
 2. On GitHub: **Settings → Pages → Build and deployment → Source → GitHub Actions**.
 3. Push to `main` (or re-run the "Deploy portfolio to GitHub Pages" workflow from the Actions tab) — the site publishes to `https://<username>.github.io/dews-personal-portfolio/`.
-4. Once ready, point the custom domain (`rayhanendra.com`) at the Pages site under **Settings → Pages → Custom domain**, and add the matching DNS records at your domain registrar.
+4. Once ready, point your custom domain (if any) at the Pages site under **Settings → Pages → Custom domain**, and add the matching DNS records at your domain registrar.
